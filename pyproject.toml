@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "elt-rl"
+version = "0.1.0"
+description = "Tinker RLVR environment for ELT-Bench (end-to-end ELT pipelines)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Pinned to the commit this environment was written against.
+    "tinker_cookbook @ git+https://github.com/thinking-machines-lab/tinker-cookbook.git@8486b8df2fc32e9713cf96dd5f75d43c7ef70a17",
+    "duckdb>=1.2",
+    "pandas>=2.0",
+    "pyyaml>=6.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+snowflake = ["snowflake-connector-python>=3.10"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[tool.setuptools.packages.find]
+include = ["elt_rl*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]

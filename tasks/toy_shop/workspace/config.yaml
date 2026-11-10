@@ -1,0 +1,21 @@
+# Connection information for the toy_shop pipeline (ELT-Bench layout).
+# Every source listed here must be extracted and loaded into the destination
+# schema under the given table name, exactly once.
+flat_files:
+- format: csv
+  path: sources/customers.csv
+  sync_mode: full_refresh_append
+  table: customers
+- format: csv
+  path: sources/products.csv
+  sync_mode: full_refresh_append
+  table: products
+- format: jsonl
+  path: sources/orders.jsonl
+  sync_mode: full_refresh_append
+  table: orders
+# The destination block is rewritten per rollout to point at an isolated namespace.
+duckdb:
+  config:
+    database: PLACEHOLDER
+    schema: elt

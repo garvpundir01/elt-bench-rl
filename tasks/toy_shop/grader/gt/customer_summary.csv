@@ -1,0 +1,9 @@
+customer_id,customer_name,country,num_orders,total_spent,favorite_category,is_big_spender
+1,Ada Lovelace,UK,2,126.48,Stationery,1
+2,Alan Turing,UK,2,68.75,Home,0
+3,Grace Hopper,USA,1,40.5,Stationery,0
+4,Edsger Dijkstra,Netherlands,1,25.5,Home,0
+5,Barbara Liskov,USA,1,33.99,Electronics,0
+6,Donald Knuth,USA,2,153.5,Stationery,1
+7,Frances Allen,USA,0,0.0,,0
+8,Tim Berners-Lee,UK,0,0.0,,0

@@ -1,0 +1,12 @@
+table: customers
+columns:
+  - name: customer_id
+    description: Unique identifier for the customer.
+  - name: first_name
+    description: First name.
+  - name: last_name
+    description: Last name.
+  - name: email
+    description: Email address.
+  - name: country
+    description: Country of residence.

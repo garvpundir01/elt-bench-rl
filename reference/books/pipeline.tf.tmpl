@@ -1,0 +1,113 @@
+# Reference extraction & loading for ELT-Bench `books` (validates that the environment is solvable).
+# Adapted from ELT-Bench's example/retails/main.tf. Template variables are filled from the rollout's config.yaml.
+
+provider "airbyte" {
+  server_url    = "$server_url"
+  client_id     = "$client_id"
+  client_secret = "$client_secret"
+}
+
+resource "airbyte_destination_snowflake" "snowflake" {
+  name          = "Snowflake Destination"
+  workspace_id  = "$workspace_id"
+  definition_id = "$snowflake_definition_id"
+  configuration = {
+    host      = "$snowflake_account.snowflakecomputing.com"
+    role      = "$snowflake_role"
+    warehouse = "$snowflake_warehouse"
+    database  = "$snowflake_database"
+    schema    = "$snowflake_schema"
+    username  = "$snowflake_username"
+    credentials = { username_and_password = { password = "$snowflake_password" } }
+  }
+}
+
+resource "airbyte_source_postgres" "postgres" {
+  name          = "Postgres Source"
+  workspace_id  = "$workspace_id"
+  definition_id = "$postgres_definition_id"
+  configuration = {
+    host               = "$pg_host"
+    port               = $pg_port
+    database           = "$pg_database"
+    schemas            = ["$pg_schema"]
+    username           = "$pg_user"
+    password           = "$pg_password"
+    ssl_mode           = { disable = {} }
+    replication_method = { scan_changes_with_user_defined_cursor = {} }
+    tunnel_method      = { no_tunnel = {} }
+  }
+}
+
+resource "airbyte_source_mongodb_v2" "mongodb" {
+  name          = "MongoDB Source"
+  workspace_id  = "$workspace_id"
+  definition_id = "$mongodb_definition_id"
+  configuration = {
+    database_config = {
+      self_managed_replica_set = {
+        connection_string = "$mongo_connection_string"
+        database          = "$mongo_database"
+      }
+    }
+  }
+}
+
+resource "airbyte_source_custom" "custom_api" {
+  name          = "Custom API Source"
+  workspace_id  = "$workspace_id"
+  definition_id = "$custom_api_definition_id"
+  configuration = jsonencode({})
+}
+
+resource "airbyte_source_s3" "s3" {
+  name          = "S3 Source"
+  workspace_id  = "$workspace_id"
+  definition_id = "$s3_definition_id"
+  configuration = {
+    aws_access_key_id     = "$aws_access_key_id"
+    aws_secret_access_key = "$aws_secret_access_key"
+    endpoint              = "$aws_endpoint"
+    region_name           = "$aws_region"
+    bucket                = "$s3_bucket"
+    streams = [
+$s3_streams
+    ]
+  }
+}
+
+$file_sources
+
+resource "airbyte_connection" "postgres" {
+  name                 = "Postgres to Snowflake"
+  source_id            = airbyte_source_postgres.postgres.source_id
+  destination_id       = airbyte_destination_snowflake.snowflake.destination_id
+  namespace_definition = "destination"
+  configurations = { streams = [$pg_streams] }
+}
+
+resource "airbyte_connection" "mongodb" {
+  name                 = "MongoDB to Snowflake"
+  source_id            = airbyte_source_mongodb_v2.mongodb.source_id
+  destination_id       = airbyte_destination_snowflake.snowflake.destination_id
+  namespace_definition = "destination"
+  configurations = { streams = [$mongo_streams] }
+}
+
+resource "airbyte_connection" "custom_api" {
+  name                 = "API to Snowflake"
+  source_id            = airbyte_source_custom.custom_api.source_id
+  destination_id       = airbyte_destination_snowflake.snowflake.destination_id
+  namespace_definition = "destination"
+  configurations = { streams = [$api_streams] }
+}
+
+resource "airbyte_connection" "s3" {
+  name                 = "S3 to Snowflake"
+  source_id            = airbyte_source_s3.s3.source_id
+  destination_id       = airbyte_destination_snowflake.snowflake.destination_id
+  namespace_definition = "destination"
+  configurations = { streams = [$s3_conn_streams] }
+}
+
+$file_connections

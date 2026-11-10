@@ -1,0 +1,10 @@
+{"order_id": 1001, "customer_id": 1, "order_date": "2024-01-05", "status": "delivered", "items": [{"product_id": 101, "quantity": 1}, {"product_id": 102, "quantity": 2}]}
+{"order_id": 1002, "customer_id": 1, "order_date": "2024-02-11", "status": "delivered", "items": [{"product_id": 105, "quantity": 4}]}
+{"order_id": 1003, "customer_id": 2, "order_date": "2024-01-20", "status": "delivered", "items": [{"product_id": 103, "quantity": 1}, {"product_id": 104, "quantity": 1}]}
+{"order_id": 1004, "customer_id": 3, "order_date": "2024-03-02", "status": "cancelled", "items": [{"product_id": 101, "quantity": 2}]}
+{"order_id": 1005, "customer_id": 3, "order_date": "2024-03-15", "status": "delivered", "items": [{"product_id": 106, "quantity": 1}, {"product_id": 105, "quantity": 2}]}
+{"order_id": 1006, "customer_id": 4, "order_date": "2024-04-01", "status": "delivered", "items": [{"product_id": 104, "quantity": 3}]}
+{"order_id": 1007, "customer_id": 5, "order_date": "2024-04-18", "status": "shipped", "items": [{"product_id": 102, "quantity": 1}, {"product_id": 103, "quantity": 1}]}
+{"order_id": 1008, "customer_id": 6, "order_date": "2024-05-09", "status": "delivered", "items": [{"product_id": 101, "quantity": 1}]}
+{"order_id": 1009, "customer_id": 6, "order_date": "2024-05-30", "status": "delivered", "items": [{"product_id": 106, "quantity": 2}]}
+{"order_id": 1010, "customer_id": 2, "order_date": "2024-06-12", "status": "delivered", "items": [{"product_id": 105, "quantity": 1}, {"product_id": 106, "quantity": 1}]}

@@ -1,0 +1,12 @@
+table: orders
+columns:
+  - name: order_id
+    description: Unique identifier for the order.
+  - name: customer_id
+    description: The customer who placed the order.
+  - name: order_date
+    description: Date the order was placed.
+  - name: status
+    description: One of 'delivered', 'shipped', 'cancelled'.
+  - name: items
+    description: List of order lines, each with product_id and quantity.

@@ -1,0 +1,10 @@
+table: products
+columns:
+  - name: product_id
+    description: Unique identifier for the product.
+  - name: product_name
+    description: Product name.
+  - name: category
+    description: Product category.
+  - name: unit_price
+    description: Price of one unit.

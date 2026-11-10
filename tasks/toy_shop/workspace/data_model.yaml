@@ -1,0 +1,31 @@
+models:
+  - name: customer_summary
+    description: Each record represents a customer, with metrics over their non-cancelled orders.
+    columns:
+      - name: customer_id
+        description: Unique identifier for the customer.
+      - name: customer_name
+        description: The customer's first name and last name separated by a single space.
+      - name: country
+        description: The customer's country.
+      - name: num_orders
+        description: Number of orders placed by the customer whose status is not 'cancelled'. 0 if none.
+      - name: total_spent
+        description: Sum of quantity * unit_price over all items in the customer's non-cancelled orders, rounded to 2 decimals. 0 if none.
+      - name: favorite_category
+        description: The product category with the largest total quantity across the customer's non-cancelled orders, with ties broken by the ascending order of the category name. NULL if the customer has no non-cancelled orders.
+      - name: is_big_spender
+        description: 1 if total_spent is greater than 100, otherwise 0.
+  - name: category_sales
+    description: Each record represents a product category.
+    columns:
+      - name: category
+        description: The product category.
+      - name: num_products
+        description: Number of products in the category.
+      - name: units_sold
+        description: Total quantity of the category's products sold in non-cancelled orders. 0 if none.
+      - name: revenue
+        description: Sum of quantity * unit_price for the category's products in non-cancelled orders, rounded to 2 decimals. 0 if none.
+      - name: top_product
+        description: Name of the product in the category with the highest revenue in non-cancelled orders, with ties broken by the ascending order of the product name. NULL if nothing in the category was sold.

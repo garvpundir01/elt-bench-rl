@@ -1,0 +1,7 @@
+.venv
+.git
+__pycache__
+.pytest_cache
+rollouts
+*.duckdb
+*_credential.json
